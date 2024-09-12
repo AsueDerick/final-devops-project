@@ -4,22 +4,22 @@ pipeline {
         maven "maven"
     }
     stages {
-        stage('') {
+        stage('Neris') {
             steps {
                 git branch: 'main', url: 'https://github.com/AsueDerick/final-devops-project.git'
             }
         }
-        stage('') { 
+        stage('Meng') { 
             steps {
                 sh "mvn compile" 
             }
         }
-        stage('') { 
+        stage('Golda') { 
             steps {
                 sh 'mvn test' 
             }
         }
-        stage('') { 
+        stage('Nini') { 
             steps {
                 sh 'mvn package'
             }
