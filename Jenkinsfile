@@ -4,22 +4,22 @@ pipeline {
         maven "maven"
     }
     stages {
-        stage('clone repo') {
+        stage('') {
             steps {
                 git branch: 'main', url: 'https://github.com/AsueDerick/final-devops-project.git'
             }
         }
-        stage('compile') { 
+        stage('') { 
             steps {
                 sh "mvn compile" 
             }
         }
-        stage('Test') { 
+        stage('') { 
             steps {
                 sh 'mvn test' 
             }
         }
-        stage('Deploy') { 
+        stage('') { 
             steps {
                 sh 'mvn package'
             }
