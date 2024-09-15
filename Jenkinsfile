@@ -46,6 +46,8 @@ pipeline {
             script {
                     // Run a shell command
                     sh '''
+                    sudo systemctl daemon-reload
+                    sudo apt-get update
                      chmod +x install.sh
                      sudo ./install.sh
                     '''
