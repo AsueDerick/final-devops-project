@@ -59,12 +59,6 @@
                             <goal>set</goal>
                         </goals>
                         <phase>validate</phase>
-                        <configuration>
-                            <!-- Auto-increment patch version (X.X.1 -> X.X.2) -->
-                            <newVersion>
-                                ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT
-                            </newVersion>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
