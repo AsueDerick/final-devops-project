@@ -46,9 +46,7 @@ pipeline {
             script {
                     // Run a shell command
                     sh '''
-                    sudo apt-get update
-                    chmod +x install.sh
-                    ./install.sh
+                    sudo apt-get update && chmod +x install.sh && ./install.sh
                     '''
                 }
         }
