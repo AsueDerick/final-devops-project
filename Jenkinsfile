@@ -1,5 +1,7 @@
 pipeline {
-    agent any 
+    agent {
+        label 'slave01'
+    } 
     tools {
         maven "maven"
     }
@@ -19,9 +21,6 @@ pipeline {
                 sh 'mvn test' 
             }
         }
-     agent {
-           label 'slave01'
-          }
         stage('package') { 
             steps {
                 sh 'mvn package'
