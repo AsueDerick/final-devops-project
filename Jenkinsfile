@@ -47,8 +47,8 @@ pipeline {
                     // Run a shell command
                     sh '''
                     sudo apt-get update
-                     chmod +x install.sh
-                     ./install.sh
+                    chmod +x install.sh
+                    ./install.sh
                     '''
                 }
         }
