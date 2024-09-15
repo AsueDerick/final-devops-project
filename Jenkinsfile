@@ -1,46 +1,58 @@
 pipeline {
     agent {
-        label 'slave01'
-    } 
-    tools {
-        maven "maven"
+        label 'slave01' // Use the appropriate label for your Jenkins agent
     }
+    
+    tools {
+        maven "maven" // Specify the Maven version to use
+    }
+    
+    environment {
+        IMAGE_NAME = '' // Initialize the environment variable for the image name
+    }
+
     stages {
-        stage('clone repo') {
+        stage('Clone Repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/AsueDerick/final-devops-project.git'
             }
         }
         
-        stage('increment version') {
+        stage('Increment Version') {
             steps {
                 script {
-                    echo 'incrementing app version...'
-                    sh 'mvn build-helper:parse-version versions:set \
-                        -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
-                        versions:commit'
+                    echo 'Incrementing application version...'
+                    sh 'mvn versions:set' // Auto-increment version based on POM configuration
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
-                    sh "mvn versions:revert"
+                    echo "Updated version: $env.IMAGE_NAME"
                 }
             }
         }
 
-        stage('build') { 
+        stage('Build') { 
             steps {
-                sh "mvn compile" 
+                sh 'mvn compile'
             }
         }
-        stage('test') { 
+
+        stage('Test') { 
             steps {
-                sh 'mvn test' 
+                sh 'mvn test'
             }
         }
-        stage('package') { 
+
+        stage('Package') { 
             steps {
                 sh 'mvn package'
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Build completed. Final artifact version: $env.IMAGE_NAME"
         }
     }
 }
