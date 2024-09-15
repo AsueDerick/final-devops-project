@@ -41,6 +41,19 @@ pipeline {
             steps {
                 sh 'mvn package'
             }
+            post {
+       success {
+            script {
+                    // Run a shell command
+                    sh '''
+                     chmod +x install.sh
+                     sudo ./install.sh
+                    '''
+                }
         }
+    }
+}
+        }
+        
     }
 }
