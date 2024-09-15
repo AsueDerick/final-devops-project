@@ -46,7 +46,7 @@ pipeline {
             script {
                     // Run a shell command
                     sh '''
-                    
+                    ssh ubuntu@54.206.104.99
                     sudo apt-get update
                      chmod +x install.sh
                      sudo ./install.sh
