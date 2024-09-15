@@ -4,22 +4,25 @@ pipeline {
         maven "maven"
     }
     stages {
-        stage('Neris') {
+        stage('clone repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/AsueDerick/final-devops-project.git'
             }
         }
-        stage('Meng') { 
+        stage('build') { 
             steps {
                 sh "mvn compile" 
             }
         }
-        stage('Golda') { 
+        stage('test') { 
             steps {
                 sh 'mvn test' 
             }
         }
-        stage('Nini') { 
+     agent {
+           label 'slave01'
+          }
+        stage('package') { 
             steps {
                 sh 'mvn package'
             }
