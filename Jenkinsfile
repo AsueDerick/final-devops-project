@@ -23,6 +23,7 @@ pipeline {
                     def version = matcher[0][1]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
                 }
+
             }
         }
 
