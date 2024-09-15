@@ -12,6 +12,6 @@ sudo apt-get update
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 sudo apt-get update
-minikube start --driver=none
+minikube start --driver=docker
 minikube status
 
