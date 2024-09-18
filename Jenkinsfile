@@ -36,11 +36,11 @@ pipeline {
                     sudo apt-get install docker.io -y
                     sudo usermod -aG docker ubuntu
                     sudo service docker start
-                    docker run ansible/ansible
+                    sudo docker run ansible/ansible
 
                     sudo apt-get update -y
 
-                    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+                    sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
                     sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
                     sudo usermod -aG minikube ubuntu
