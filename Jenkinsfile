@@ -36,7 +36,7 @@ pipeline {
                     sudo apt-get install docker.io -y
                     sudo usermod -aG docker ubuntu
                     sudo service docker start
-                    sudo docker run ansible/ansible
+                    sudo apt-get install ansible -y
 
                     sudo apt-get update -y
 
