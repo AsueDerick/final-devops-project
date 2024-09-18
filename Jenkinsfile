@@ -28,5 +28,28 @@ pipeline {
             }
         }
 
+         stage('application installation') {
+            steps {
+                script {
+                    sh ''' 
+                    sudo apt update
+                    sudo apt-get install docker.io
+                    sudo usermod -aG docker ubuntu
+                    sudo service docker start
+                    docker run ansible/ansible
+
+                    sudo apt-get update
+
+                    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+                    sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+
+                    sudo usermod -aG minikube ubuntu
+
+                    minikube start
+                    '''
+                }
+            }
+        }
+
     }
 }
