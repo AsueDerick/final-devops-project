@@ -48,7 +48,7 @@ pipeline {
                         chmod +x install_tools.sh
                         ./install_tools.sh
                         exit
-                        EOF
+                        'EOF'
                         """
                     }
                 }
