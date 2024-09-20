@@ -40,7 +40,7 @@ pipeline {
                     sshagent(credentials: [SSH_CREDENTIALS_ID]) {
                         // Run SSH command
                         sh """
-                        scp -o StrictHostKeyChecking=no -r install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
+                        cp -o StrictHostKeyChecking=no -r install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
                         ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} << EOF
                         echo "Connected to Ubuntu Server!" 
                         chmod +x install_tools.sh
