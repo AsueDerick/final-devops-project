@@ -2,9 +2,7 @@ pipeline {
     tools {
         maven 'maven'
     }
-    agent {
-        label 'slave01'
-    }
+    agent any
     stages {
         stage('clone repo') {
             steps {
@@ -31,7 +29,8 @@ pipeline {
          stage('application installation') {
             steps {
                 script {
-                    sh ''' 
+                    sh '''
+                    ssh ubuntu@172.31.12.10
                     sudo apt update -y
                     sudo apt-get install docker.io -y
                     sudo usermod -aG docker ubuntu
