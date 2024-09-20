@@ -4,7 +4,7 @@ pipeline {
     }
     agent any
     environment {
-        SSH_CREDENTIALS_ID = 'engineer'  // Set your SSH credentials ID
+        SSH_CREDENTIALS_ID = 'engineer'  
         REMOTE_USER = 'ubuntu'
         REMOTE_HOST = '3.25.137.144'
         REMOTE_DIR = '/home/ubuntu'
@@ -28,7 +28,7 @@ pipeline {
         }
         stage('package') {
             steps {
-                sh 'mvn package clean'
+                sh 'mvn package'
             }
         }
 
