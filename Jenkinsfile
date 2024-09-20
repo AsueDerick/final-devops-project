@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    ssh ubuntu@172.31.12.10
+                    ssh -T ubuntu@172.31.12.10
                     sudo apt update -y
                     sudo apt-get install docker.io -y
                     sudo usermod -aG docker ubuntu
