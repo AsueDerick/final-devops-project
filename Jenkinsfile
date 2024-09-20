@@ -45,7 +45,7 @@ pipeline {
 
                     sudo usermod -aG minikube ubuntu
 
-                    minikube start --driver=docker
+                    minikube start 
                     '''
                 }
             }
