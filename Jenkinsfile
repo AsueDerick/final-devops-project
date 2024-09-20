@@ -40,7 +40,7 @@ pipeline {
                         // Run SSH command
                         sh """
                         ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} << EOF
-                        echo "Connected to Ubuntu Server!"
+                        echo "Connected to Ubuntu Server!" >> text.txt
                         # You can run any remote command here, e.g., deploy your app, restart services, etc.
                         exit
                         EOF
