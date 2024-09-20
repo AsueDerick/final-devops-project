@@ -39,13 +39,13 @@ pipeline {
                     sudo apt-get install ansible -y
 
                     sudo apt-get update -y
-
+                    cd
                     sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
                     sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
                     sudo usermod -aG minikube ubuntu
 
-                    minikube start
+                    minikube start --driver=docker
                     '''
                 }
             }
