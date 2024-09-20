@@ -39,12 +39,14 @@ pipeline {
                     sshagent(credentials: [SSH_CREDENTIALS_ID]) {
                         // Run SSH command
                         sh """
-                        scp -o StrictHostKeyChecking=no -r install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
-                        ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} << EOF
-                        echo "Connected to Ubuntu Server!" 
+                        scp -o StrictHostKeyChecking=no install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
+                        """
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} << 'EOF'
+                        cd ${REMOTE_DIR}
+                        echo "Connected to Ubuntu Server!"
                         chmod +x install_tools.sh
                         ./install_tools.sh
-                        # You can run any remote command here, e.g., deploy your app, restart services, etc.
                         exit
                         EOF
                         """
