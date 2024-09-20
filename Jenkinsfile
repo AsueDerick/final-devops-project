@@ -36,11 +36,10 @@ pipeline {
         stage('SSH to Ubuntu Server') {
             steps {
                 script {
-                    scp 
                     sshagent(credentials: [SSH_CREDENTIALS_ID]) {
                         // Run SSH command
                         sh """
-                        cp -o StrictHostKeyChecking=no -r install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
+                        scp -o StrictHostKeyChecking=no -r install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
                         ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} << EOF
                         echo "Connected to Ubuntu Server!" 
                         chmod +x install_tools.sh
