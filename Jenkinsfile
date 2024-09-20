@@ -3,6 +3,11 @@ pipeline {
         maven 'maven'
     }
     agent any
+    environment {
+        SSH_CREDENTIALS_ID = 'engineer'  // Set your SSH credentials ID
+        REMOTE_USER = 'ubuntu'
+        REMOTE_HOST = '54.252.14.191'
+    }
     stages {
         stage('clone repo') {
             steps {
@@ -26,30 +31,26 @@ pipeline {
             }
         }
 
-         stage('application installation') {
+         
+        stage('SSH to Ubuntu Server') {
             steps {
                 script {
-                    sh '''
-                    cd
-                    ssh -i ~/.ssh/id_ed25519.pub ubuntu@172.31.12.10
-                    sudo apt update -y
-                    sudo apt-get install docker.io -y
-                    sudo usermod -aG docker ubuntu
-                    sudo service docker start
-                    sudo apt-get install ansible -y
-
-                    sudo apt-get update -y
-                    cd
-                    sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-                    sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
-
-                    sudo usermod -aG minikube ubuntu
-
-                    minikube start 
-                    '''
+                    // Use sshagent with the credentials ID to initiate the SSH session
+                    sshagent(credentials: [SSH_CREDENTIALS_ID]) {
+                        // Run SSH command
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} << EOF
+                        echo "Connected to Ubuntu Server!"
+                        # You can run any remote command here, e.g., deploy your app, restart services, etc.
+                        exit
+                        EOF
+                        """
+                    }
                 }
             }
         }
+    
+}
 
     }
-}
+
