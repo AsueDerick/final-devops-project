@@ -42,13 +42,7 @@ pipeline {
                         scp -o StrictHostKeyChecking=no install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
                         """
                         sh """
-                        ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} << 'EOF'
-                        cd ${REMOTE_DIR}
-                        echo "Connected to Ubuntu Server!"
-                        chmod +x install_tools.sh
-                        ./install_tools.sh
-                        exit
-                        'EOF'
+                       ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} && echo 'Connected to Ubuntu Server!' && chmod +x install_tools.sh && ./install_tools.sh"
                         """
                     }
                 }
