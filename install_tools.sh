@@ -8,6 +8,7 @@ sudo apt-get install ansible -y
 sudo apt-get install -y apt-transport-https ca-certificates curl
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube /usr/local/bin/
+rm -r minikube
 minikube version
 
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
