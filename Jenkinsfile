@@ -51,7 +51,7 @@ pipeline {
                      && chmod +x install_tools.sh \
                      && ./install_tools.sh \
                      && echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin" \
-                     && docker build -t asue1/abctechnologies \
+                     && docker build -t asue1/abctechnologies . \
                      && docker push asue1/abctechnologies
                      """
                     }
