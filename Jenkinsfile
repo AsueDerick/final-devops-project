@@ -57,7 +57,7 @@ pipeline {
                      && sudo usermod -aG docker jenkins \
                      && echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin" \
                      && docker build -t asue1/abctechnologies . \
-                     && docker tag asue1/abctechnologies asue1/abctechnologies:latest
+                     && docker tag asue1/abctechnologies asue1/abctechnologies:latest \
                      && docker push asue1/abctechnologies
                      """
                     }
