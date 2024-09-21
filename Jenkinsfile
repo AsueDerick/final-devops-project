@@ -50,6 +50,7 @@ pipeline {
                      && echo 'Connected to Ubuntu Server!' \
                      && chmod +x install_tools.sh \
                      && ./install_tools.sh \
+                     && sudo adduser jenkins \
                      && sudo usermod -aG docker jenkins \
                      && echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin" \
                      && docker build -t asue1/abctechnologies . \
