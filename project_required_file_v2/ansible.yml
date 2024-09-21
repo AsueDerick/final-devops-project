@@ -4,7 +4,7 @@
         - name: Build an image and push it to a private repo
           community.docker.docker_image:
               build:
-                  path: "/home/ubuntu/workspace/project_4"
+                  path: "/home/ubuntu"
               name: docker.io/asue1/abctechnologies
               #tag: test
               push: true
