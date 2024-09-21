@@ -6,7 +6,7 @@ pipeline {
     environment {
         SSH_CREDENTIALS_ID = 'engineer'  
         REMOTE_USER = 'ubuntu'
-        REMOTE_HOST = '3.25.137.144'
+        REMOTE_HOST = '13.239.43.26'
         REMOTE_DIR = '/home/ubuntu'
     }
     stages {
