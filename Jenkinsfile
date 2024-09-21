@@ -45,7 +45,13 @@ pipeline {
                         scp -r -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project_4/target/*-1.0.0.war ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
                         """
                         sh """
-                       ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} && echo 'Connected to Ubuntu Server!' && chmod +x install_tools.sh && ./install_tools.sh"
+                       ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} \
+                       && echo 'Connected to Ubuntu Server!' \
+                       && chmod +x install_tools.sh \
+                       && ./install_tools.sh" \
+                       && withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                            sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
+                          }
                         """
                     }
                 }
