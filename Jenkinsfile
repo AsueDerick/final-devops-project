@@ -40,6 +40,7 @@ pipeline {
                         // Run SSH command
                         sh """
                         scp -o StrictHostKeyChecking=no install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
+                        scp -o StrictHostKeyChecking=no Dockerfile ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
                         scp -r -o StrictHostKeyChecking=no project_required_file_v2/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
                         scp -r -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project_4/target/*-1.0.0.war ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
                         """
