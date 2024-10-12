@@ -1,0 +1,13 @@
+---
+- name: Copy files from Jenkins pipeline target directory to /home/ubuntu on all hosts
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Copy files from Jenkins pipeline target directory
+      copy:
+        src: /var/lib/jenkins/workspace/pipeline/target/
+        dest: /home/ubuntu/
+        mode: '0755'
+        owner: ubuntu
+        group: ubuntu
