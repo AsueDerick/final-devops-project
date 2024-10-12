@@ -1,6 +1,7 @@
 FROM openjdk:11-jdk AS build
+RUN mkdir app
 WORKDIR /app
-COPY ABCtechnologies-1.0.0.war ./ABCtechnologies-1.0.0.war
+COPY target/ABCtechnologies-1.0.0.war ./ABCtechnologies-1.0.0.war
 
 FROM tomcat:9-jdk11
 RUN rm -rf /usr/local/tomcat/webapps/*
