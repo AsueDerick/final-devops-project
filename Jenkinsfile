@@ -21,5 +21,10 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage('copy') {
+            steps {
+                sh 'ansible-playbook -i /etc/ansible/hosts copy.yaml'
+            }
+        }
     }
 }
