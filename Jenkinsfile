@@ -23,7 +23,7 @@ pipeline {
         }
         stage('copy') {
             steps {
-                ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/target/copy.yml', vaultTmpPath: ''
+                ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/target/copy.yaml', vaultTmpPath: ''
             }
         }
     }
