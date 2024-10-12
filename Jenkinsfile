@@ -23,9 +23,7 @@ pipeline {
         }
         stage('copy') {
             steps {
-                sshagent(['ubuntu']) {
-                   sh 'ansible-playbook -i /etc/ansible/hosts copy.yaml'
-                 }
+                ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/target/copy.yml', vaultTmpPath: ''
             }
         }
     }
