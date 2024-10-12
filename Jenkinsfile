@@ -33,11 +33,11 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                   sh ''' 
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.5.69 \
-                        && docker build -t asue1/ABCTechnologies:v1 /workspace/pipeline/Dockerfile \
+                        && docker build -t asue1/abctechnologies:v1 . \
                         && echo "$PASSWORD" | docker login -u "$USER" --password-stdin \
-                        && docker push asue1/ABCTechnologies:v1 \
-                        && docker run -d -p 8080:8080 asue1/ABCTechnologies:v1 \
-                        && kubectl apply -f /workspace/pipeline/project_required_file_v2/deployment.yml \
+                        && docker push asue1/abctechnologies:v1 \
+                        && docker run -d -p 8080:8080 asue1/abctechnologies:v1 \
+                        && kubectl apply -f project_required_file_v2/deployment.yml \
                     '''
                 }
                   } 
