@@ -26,7 +26,7 @@ pipeline {
                 ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/pipeline/copy.yaml', vaultTmpPath: ''
             }
         }
-        stage('copy') {
+        stage('ssh-connect') {
             steps {
                script {
                    sshagent(['ubuntu']) {
