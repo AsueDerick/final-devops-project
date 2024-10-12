@@ -30,14 +30,14 @@ pipeline {
             steps {
                script {
                    sshagent(['ubuntu']) {
-                withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'password', usernameVariable: 'user')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                   sh ''' 
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.5.69 \
-                        && sudo apt-get update -y \
-                        && sudo apt-get install -y docker.io \
-                        && sudo usermod -aG docker ubuntu \
+                        echo "$password" | sudo -S apt-get update \
+                        && echo "$password" | sudo -S apt-get install -y docker.io \
+                        && echo "$password" | sudo -S usermod -aG docker ubuntu
                         && docker build -t asue1/ABCTechnologies:v1 /workspace/pipeline/Dockerfile \
-                        && echo "$pass" | docker login -u "$user" --password-stdin \
+                        && echo "$PASSWORD" | docker login -u "$USER" --password-stdin \
                         && docker push asue1/ABCTechnologies:v1 \
                         && docker run -d -p 8080:8080 asue1/ABCTechnologies:v1 \
                         && kubectl apply -f /workspace/pipeline/project_required_file_v2/deployment.yml \
