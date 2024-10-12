@@ -6,7 +6,7 @@
   tasks:
     - name: Copy files from Jenkins pipeline target directory
       copy:
-        src: /var/lib/jenkins/workspace/pipeline/target/
+        src: /var/lib/jenkins/workspace/pipeline/
         dest: /home/ubuntu/
         mode: '0755'
         owner: ubuntu
