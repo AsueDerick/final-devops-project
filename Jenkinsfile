@@ -4,18 +4,18 @@ pipeline {
         stage('compile') {
             agent { label 'slave01'}
             steps {
-                ssh 'compile'
+                sh 'compile'
             }
         }
         stage('Test') {
             agent { label 'slave01'}
             steps {
-                ssh 'test'
+                sh 'test'
             }
         }
         stage('Deploy') {
             steps {
-                ssh 'package'
+                sh 'package'
             }
         }
     }
