@@ -19,7 +19,7 @@ spec:
                 app: abc-tech-app
         spec:
             containers:
-                - image: asue1/ABCTechnologies:v1
+                - image: asue1/abctechnologies:v1
                   name: app
 ---
 
