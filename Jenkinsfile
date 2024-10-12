@@ -23,7 +23,9 @@ pipeline {
         }
         stage('copy') {
             steps {
-                sh 'ansible-playbook -i /etc/ansible/hosts copy.yaml'
+                sshagent(['ubuntu']) {
+                   sh 'ansible-playbook -i /etc/ansible/hosts copy.yaml'
+                 }
             }
         }
     }
