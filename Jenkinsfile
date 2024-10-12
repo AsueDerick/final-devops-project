@@ -36,7 +36,7 @@ pipeline {
                         && docker build -t asue1/abctechnologies:v1 . \
                         && echo "$PASSWORD" | docker login -u "$USER" --password-stdin \
                         && docker push asue1/abctechnologies:v1 \
-                        && kubectl apply -f project_required_file_v2/deployment.yml \
+                        && kubectl apply -f project_required_file_v2/deployment.yml --validate=false \
                     '''
                 }
                   } 
