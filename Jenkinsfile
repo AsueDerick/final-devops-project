@@ -33,7 +33,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'password', usernameVariable: 'user')]) {
                   sh ''' 
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.5.69 \
-                        && sudo apt-get update \
+                        && sudo apt-get update -y \
                         && sudo apt-get install -y docker.io \
                         && sudo usermod -aG docker ubuntu \
                         && docker build -t asue1/ABCTechnologies:v1 /workspace/pipeline/Dockerfile \
