@@ -1,69 +1,22 @@
 pipeline {
-    tools {
-        maven 'maven'
-    }
     agent any
-    environment {
-        SSH_CREDENTIALS_ID = 'engineer'  
-        REMOTE_USER = 'ubuntu'
-        REMOTE_HOST = '54.153.203.197'
-        REMOTE_DIR = '/home/ubuntu'
-    }
     stages {
-        stage('clone repo') {
+        stage('compile') {
+            agent { label 'slave01'}
             steps {
-                git branch: 'main', url: 'https://github.com/AsueDerick/final-devops-project.git'
+                ssh 'compile'
             }
         }
-
-        stage('build') {
+        stage('Test') {
+            agent { label 'slave01'}
             steps {
-                sh 'mvn compile'
+                ssh 'test'
             }
         }
-        stage('test') {
+        stage('Deploy') {
             steps {
-                sh 'mvn test'
+                ssh 'package'
             }
         }
-        stage('package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
-
-         
-        stage('SSH to Ubuntu Server') {
-            steps {
-                script {
-                    sshagent(credentials: [SSH_CREDENTIALS_ID]) {
-                        // Run SSH command
-                        sh """
-                        scp -o StrictHostKeyChecking=no install_tools.sh ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
-                        scp -o StrictHostKeyChecking=no Dockerfile ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
-                        scp -r -o StrictHostKeyChecking=no project_required_file_v2/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
-                        scp -r -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project_4/target/*-1.0.0.war ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
-                        """
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                    sh """
-                     ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} \
-                     && echo 'Connected to Ubuntu Server!' \
-                     && chmod +x install_tools.sh \
-                     && ./install_tools.sh \
-                     && sudo adduser jenkins \
-                     && sudo usermod -aG docker jenkins \
-                     && echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin" \
-                     && docker build -t asue1/abctechnologies . \
-                     && docker push asue1/abctechnologies
-                     """
-                    }
-
-                    }
-                }
-            }
-        }
-    
-}
-
     }
-
+}
