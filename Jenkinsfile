@@ -4,18 +4,18 @@ pipeline {
         stage('compile') {
             agent { label 'slave01'}
             steps {
-                sh 'compile'
+                sh 'mvn compile'
             }
         }
         stage('Test') {
             agent { label 'slave01'}
             steps {
-                sh 'test'
+                sh 'mvn test'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'package'
+                sh 'mvn package'
             }
         }
     }
