@@ -43,5 +43,15 @@ pipeline {
                }
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://172.31.5.69:6443/') {
+    
+                       }
+                    }
+                }
     }
 }
+}
+    
