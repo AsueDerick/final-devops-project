@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        KUBECONFIG = credentials('kubernetes') 
+    }
     tools {
         maven 'maven'
     }
@@ -43,14 +46,15 @@ pipeline {
             }
         }
         stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://172.31.5.69:6443/') {
-                       kubectl apply -f project_required_file_v2/deployment.yml --validate=false 
-                       }
-                    }
-                }
+    steps {
+        script {
+            kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://172.31.5.69:6443/') {
+                sh '''
+                kubectl apply -f project_required_file_v2/deployment.yml --namespace=default --validate=false
+                '''
+            }
+        }
     }
 }
 }
-    
+}
