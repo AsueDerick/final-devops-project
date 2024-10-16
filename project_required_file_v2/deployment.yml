@@ -32,5 +32,5 @@ spec:
     app: abc-tech-app
   ports:
     - port: 89           # Cluster port
-      targetPort: 8089   # Container port
+      targetPort: 8090   # Container port
       nodePort: 32000    # Optional: specify a NodePort
