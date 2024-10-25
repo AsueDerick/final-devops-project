@@ -26,16 +26,16 @@ pipeline {
         }
         stage('copy') {
             steps {
-                ansiblePlaybook credentialsId: 'ubuntu', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/pipeline/copy.yaml', vaultTmpPath: ''
+                ansiblePlaybook credentialsId: 'root', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/pipeline/copy.yaml', vaultTmpPath: ''
             }
         }
         stage('ssh-connect') {
             steps {
                script {
-                   sshagent(['ubuntu']) {
+                   sshagent(['root']) {
                 withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                   sh ''' 
-                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.5.69 \
+                    ssh -o StrictHostKeyChecking=no 172.31.9.85 \
                         && docker build -t asue1/abctechnologies:v1 . \
                         && echo "$PASSWORD" | docker login -u "$USER" --password-stdin \
                         && docker push asue1/abctechnologies:v1 
@@ -48,7 +48,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
     steps {
         script {
-            kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://172.31.5.69:6443/') {
+            kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://172.31.9.85:6443/') {
                 sh '''
                 kubectl apply -f project_required_file_v2/deployment.yml --namespace=default --validate=false
                 '''
