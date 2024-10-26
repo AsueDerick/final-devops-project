@@ -47,7 +47,7 @@ pipeline {
         script {
             kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://172.31.9.85:6443/') {
                 sh '''
-                kubectl apply -f project_required_file_v2/deployment.yml --namespace=default --validate=false
+                kubectl apply -f project_required_file_v2/deployment.yml --namespace=jenkins --validate=false
                 '''
             }
         }
