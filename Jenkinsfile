@@ -33,9 +33,9 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                   sh ''' 
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.85 \
-                        && sudo docker build -t asue1/abctechnologies:v1 . \
+                        && docker build -t asue1/abctechnologies:v1 . \
                         && echo "$PASSWORD" | docker login -u "$USER" --password-stdin \
-                        && sudo docker push asue1/abctechnologies:v1 
+                        && docker push asue1/abctechnologies:v1 
                     '''
                 }
                   } 
