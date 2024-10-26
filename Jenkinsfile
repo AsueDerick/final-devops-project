@@ -26,13 +26,13 @@ pipeline {
         }
         stage('copy') {
             steps {
-                ansiblePlaybook credentialsId: 'root', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/pipeline/copy.yaml', vaultTmpPath: ''
+                ansiblePlaybook credentialsId: 'slave01', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/var/lib/jenkins/workspace/pipeline/copy.yaml', vaultTmpPath: ''
             }
         }
         stage('ssh-connect') {
             steps {
                script {
-                   sshagent(['root']) {
+                   sshagent(credentials: ['slave01'], ignoreMissing: true) {
                 withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                   sh ''' 
                     ssh -o StrictHostKeyChecking=no 172.31.9.85 \
