@@ -30,18 +30,16 @@ pipeline {
             steps {
                script {
                    sshagent(credentials: ['slave01'], ignoreMissing: true) {
-                withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
-                  sh ''' 
-                    ssh -n -o StrictHostKeyChecking=no ubuntu@172.31.9.85 '
-                    cd /home/ubuntu && \
-                    docker build -t asue1/abctechnologies:v1 . && \
-                    echo "$PASSWORD" | docker login -u "$USER" --password-stdin && \
-                    docker push asue1/abctechnologies:v1
-                    '
-                    '''
-                }
-                  } 
-               }
+                sh ''' 
+                ssh -n -o StrictHostKeyChecking=no ubuntu@172.31.9.85 '
+                cd /home/ubuntu && \
+                docker build -t asue1/abctechnologies:v1 . && \
+                docker push asue1/abctechnologies:v1
+               '
+              '''
+              }
+            }
+
             }
         }
         stage('Deploy to Kubernetes') {
