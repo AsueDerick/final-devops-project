@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        KUBECONFIG = credentials('kubernetes') 
-    }
     tools {
         maven 'maven'
     }
